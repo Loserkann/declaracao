@@ -35,8 +35,9 @@
         .botoes {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
-            height: 50px;
+            height: 60px;
             position: relative;
         }
 
@@ -48,6 +49,8 @@
             cursor: pointer;
             transition: transform 0.2s;
             font-weight: bold;
+            height: 45px;
+            width: 100px;
         }
 
         #sim {
@@ -62,7 +65,8 @@
         #nao {
             background-color: #ff4757;
             color: white;
-            position: absolute;
+            /* Removido o absolute daqui para eles começarem lado a lado */
+            z-index: 10;
         }
     </style>
 </head>
@@ -72,7 +76,7 @@
         <h1 id="titulo">Você aceita ser o amor da minha vida?</h1>
         <div class="botoes">
             <button id="sim" onclick="declaracao()">Sim!</button>
-            <button id="nao" onmouseover="fugir()" onclick="fugir()">Não</button>
+            <button id="nao" onmouseover="fugir()" onclick="fugir()" ontouchstart="fugir()">Não</button>
         </div>
     </div>
 
@@ -81,15 +85,16 @@
         function fugir() {
             const botaoNao = document.getElementById('nao');
             
-            // Gera posições aleatórias na tela, limitando para não sair totalmente da área visível
-            const larguraJanela = window.innerWidth - 100;
-            const alturaJanela = window.innerHeight - 50;
+            // Define o comportamento como fixo apenas na hora de fugir
+            botaoNao.style.position = 'fixed';
+            
+            // Gera posições aleatórias na tela inteira
+            const larguraJanela = window.innerWidth - 120;
+            const alturaJanela = window.innerHeight - 60;
             
             const novoX = Math.random() * larguraJanela;
             const novoY = Math.random() * alturaJanela;
             
-            // Move o botão para a posição aleatória absoluta
-            botaoNao.style.position = 'fixed';
             botaoNao.style.left = novoX + 'px';
             botaoNao.style.top = novoY + 'px';
         }
